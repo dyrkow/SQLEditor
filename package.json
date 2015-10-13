@@ -1,0 +1,23 @@
+{
+  "name": "sql-editor",
+  "version": "0.1.0",
+  "description": "editor for slq queryes",
+  "main": ".",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebWorkDeveloper/SQL-editor.git"
+  },
+  "keywords": [
+    "sql",
+    "editor"
+  ],
+  "author": "webworkdeveloper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WebWorkDeveloper/SQL-editor/issues"
+  },
+  "homepage": "https://github.com/WebWorkDeveloper/SQL-editor#readme"
+}
