@@ -1,0 +1,22 @@
+{
+  "name": "sql-editor",
+  "version": "0.1.0",
+  "homepage": "https://github.com/WebWorkDeveloper/SQL-editor",
+  "authors": [
+    "WebWorkDeveloper <webworkdeveloper@gmail.com>"
+  ],
+  "description": "static for sql editor",
+  "keywords": [
+    "sql",
+    "editor"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./src/libs/",
+    "test",
+    "tests"
+  ]
+}

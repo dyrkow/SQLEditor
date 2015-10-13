@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/WebWorkDeveloper/SQL-editor/issues"
   },
-  "homepage": "https://github.com/WebWorkDeveloper/SQL-editor#readme"
+  "homepage": "https://github.com/WebWorkDeveloper/SQL-editor#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  }
 }
