@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+// ----------------------
+// == Base styles
+// ----------------------
+html,
+body{
+	height:100%;
+	width:100%;
+}
+main{
+	padding-bottom:100px;
+}
+.ace-editor-container {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		min-width:300px;
+		min-height:250px;
+		border-radius:4px;
+}
+
+.ace_editor{
+	border:1px solid #cecece;
+	margin-bottom:10px;
+}
+
+//#pop-up
+
+.pop-up-loader{
+	width:100%;
+	height:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	display:none;
+	z-index:999;
+	padding:10px;
+
+	>div[class^='pop-up']{
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		transition:all .3s linear;
+		animation:popUp .5s;
+		>div[class^='container--']{
+			display: inline-block;
+			vertical-align: middle;
+			box-shadow: 0 0 10px #333;
+			max-width:640px;
+			min-width:300px;
+			max-height:240px;
+			min-height:180px;
+			border-radius:4px;
+			padding:20px;
+			transition:all .2s ease;
+			z-index:9999;
+
+			p{
+				margin:15px 0;
+			}
+
+			.btn-pop-up{
+				width:119px;
+				padding:10px;
+				background:#fff;
+				color:#7f8c8d;
+				outline:none;
+				border:0;
+				border-radius:4px;
+				border-bottom:3px solid #bdc3c7;
+				&:active{
+					border:0;
+				}
+			}
+		}
+		.container--success{
+			background:#2ecc71;
+			// border:2px solid #25A35A;
+			color:#fff;
+		}
+		.container--error{
+			background:#e74c3c;
+			// border:2px solid #B93D30;
+			color:#fff;
+
+		}
+		.container--info{
+			background:#3498db;
+			// border:2px solid #2A7AAF;
+			color:#fff;
+
+		}
+	}
+}
+
+.show-pop-up{
+	display:table;
+}
+
+.hide-pop-up{
+	animation: hidePopUp .2s ease forwards;
+}
+
+@keyframes popUp{
+	0%{
+		opacity:0;
+		transform:scale(0.1);
+	}
+	50%{
+		opacity:1;
+		transform:scale(1.2);
+	}
+	100%{
+		transform:scale(1);
+	}
+}
+
+@keyframes hidePopUp{
+	0%{
+		transform:scale(1.2);
+	}
+	100%{
+		transform:scale(0.5);
+		opacity: 0;
+	}
+}
+
+//loader
+.preloader{
+	background-image: url(../images/loader.gif);
+	background-position: right;
+	background-size: contain;
+	background-repeat: no-repeat;
+	padding-right:30px;
+}

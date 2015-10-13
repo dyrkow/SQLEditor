@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+// ----------------------
+// == Site settings
+// ----------------------
+
+
+// = Font
+// ----------------------
+
+
+$font-stack:
+	(group: archery, id: regular, font: ('SF_Archery_Black', san-serif ), weight: normal, style: normal),
+	(group: code, id: regular, font: (monospace), weight: 400, style: normal);
+// Breakpoint Mixin
+@mixin font($group, $id:regular){
+	@each $font in $font-stack{
+	@if($group == map-get($font, group) and $id == map-get($font, id)){
+		font-family: map-get($font, font);
+		font-weight: map-get($font, weight);
+		font-style: map-get($font, style);
+	}
+	}
+}
+
+//result
+//font-family: "Brandon Grot W01 Light", san-serif;
+//font-weight: 200;
+//font-style: italic;
+
+// = Colors
+// -----------------------------
+
+//text
+$text-color-darck:#fff;
+
+// link
+$color-link: #fff;
+$color-link-hover: #fff;
+$color-link-focus: #fff;
+
+//COLOR PANEL
+$color-stack:
+	(group: white, id:normal,color:white),
+	(group: blue, id:normal,color:blue),
+	(group: red, id:normal,color:red),
+	(group: orange, id: normal, color: orange),
+	(group: black, id: normal, color: black);
+// Color  Function
+@function color($group, $shade:normal, $transparency:1){
+	@each $color in $color-stack{
+		$c-group: map-get($color, group);
+		$c-shade: map-get($color, id);
+		@if($group == map-get($color, group) and $shade == map-get($color, id)){
+			@return rgba(map-get($color, color), $transparency);
+		}
+	}
+}
+
+//result
+// background: color(prange,pale,.2);

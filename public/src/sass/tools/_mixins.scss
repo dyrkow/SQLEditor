@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+// ----------------------
+// == mixins
+// ----------------------
+
+
+//sizing
+
+@mixin box-sizing{
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+//border-radius
+
+@mixin border-box($deg){
+	-webkit-border-radius:$deg;
+	-moz-border-radius:$deg;
+	border-radius:$deg;
+}
+
+//transition
+
+@mixin transition($string){
+	-webkit-transition:$string;
+	-moz-transition:$string;
+	transition:$string;
+}
+
+//transform
+
+@mixin transformR($string){
+	-webkit-transform:rotate($string);
+	-moz-transform:rotate($string);
+	transform:rotate($string);
+}
+
+// ----------------------
+// == placeholders
+// ----------------------
+
+
+// %selector{
+//
+// }
+
