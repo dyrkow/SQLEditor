@@ -1,39 +1,37 @@
-var MODE = config.dev;//select mode for change dev or prod
-
-var config = {
-	dev:{
-		ajax:{
-			search:{
-				url:'/search',
+var mode,
+		config = {
+			dev:{
+				search:{
+					url:'/search',
+				},
+				test:{
+					url:'/test'
+				},
+				save:{
+					url:'/save',
+				},
+				get:{
+					url:'/getquery'
+				},
+				port:3000
 			},
-			test:{
-				url:'/test'
-			},
-			save:{
-				url:'/save',
-			},
-			get:{
-				url:'/getquery'
+			prod:{
+				search:{
+					url:'SqlPageService.aspx',
+				},
+				test:{
+					url:'SqlPageService.aspx'
+				},
+				save:{
+					url:'SqlPageService.aspx',
+				},
+				get:{
+					url:'SqlPageService.aspx'
+				},
+				port:3000
 			}
-		}
-	},
-	prod:{
-		ajax:{
-			search:{
-				url:'SqlPageService.aspx',
-			},
-			test:{
-				url:'SqlPageService.aspx'
-			},
-			save:{
-				url:'SqlPageService.aspx',
-			},
-			get:{
-				url:'SqlPageService.aspx'
-			}
-		}
-	}
+		};
 
-}
+mode = config.dev;//select mode for change dev or prod
 
-module.exports = MODE;
+module.exports = mode;
