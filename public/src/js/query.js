@@ -18,6 +18,7 @@ var App        = require('./App.js'),
 			getParam:getParameter,
 			ParamPanel:$('.parameters-panel'),
 			TestCont:$('.run-view'),
+
 		},
 
 		// save status (устанавливается в зависимости от выполнения запроса)
@@ -114,11 +115,26 @@ function targetTar(val){
 
 // render page
 function renderQueryPage(data){
-	var title = $('.js-title-jquery'),
-			obj   = $('.js-obj-query');
+	var title  = $('.js-title-jquery'),
+			infoP  = $('#info-person'),
+			infoDb = $('#info-bdlink'),
+			infoS  = $('#info-sourse'),
+			infoSt = $('#info-status');
+
+	if(data.DELETE_FLAG===0){
+		infoSt.addClass('bg-success');
+	}else{
+		if(data.DELETE_FLAG===1){
+			infoSt.addClass('bg-danger');
+		}
+	}
 
 	title.text(data.COMENT);
-	obj.text(' d ');
+	infoP.text(data.RESPONSIBLE);
+	infoDb.text(data.SNAME);
+	infoS.text(data.SOURCE);
+	infoSt.text(data.DELETE_FLAG);
+
 	editor.setText(App.editor,data.QUERYSTRING);
 	Page.TestCont.html('');
 	Page.ParamPanel.html('');
