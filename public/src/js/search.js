@@ -15,17 +15,24 @@ var mainBox     = $('.search-fild'),
 
 function initialize(){
 
+	/*
+
+		Инициализирует модуль поиска
+	*/
+
+	// loaders
+	spin.create({name:'input_loader',el:fild,mode:false});
+	spin.create({name:'input_',el:fild,mode:false});
+
 	// input
 	fild.keyup(function(e){
 		var value = $(this).val();
-		console.log('val: '+value);
-		result.children('.result-item').remove();
+		result.html('');
 
 		if(value.length>=3){
 
 			delaySearch(function(){
-				spin.start(fild);
-				console.log(fild.val());
+				spin.start('input_loader');
 				ajax.search(fild.val());
 			},timeoutFild);
 		}
@@ -33,7 +40,7 @@ function initialize(){
 	});
 
 	fild.focus(function search(e){
-		result.children('.result-item').remove();
+		result.html('');
 
 		if(!mainBox.hasClass('shower')){
 			mainBox.addClass('shower');
@@ -49,11 +56,11 @@ function initialize(){
 
 		var value = fild.val();
 
-		result.children('.result-item').remove();
+		result.html('');
 
 		if(value.length>=3){
 			delaySearch(function(){
-				spin.start(fild);
+				spin.start('input_loader');
 				ajax.search(fild.val());
 			},timeoutBtn);
 		}
@@ -71,6 +78,10 @@ function initialize(){
 	// items
 	result.click(function(e){
 		var self = $(e.target);
+
+		if(self.hasClass('non')){
+			return;
+		}
 
 		disSearch();
 		query.initLoad();
@@ -95,9 +106,15 @@ function initialize(){
 }
 
 function disSearch(){
+
+	/*
+	
+		Скрывает тёмный фон у поиска
+	*/
+
 	mainBox.removeClass('shower');
 	body.removeClass('overflow');
-	result.children('.result-item').remove();
+	result.html('');
 }
 
 function renderResultItems(data){
@@ -107,6 +124,11 @@ function renderResultItems(data){
 
 		Рендерит найденные данные
 	*/
+
+	if(data.length<1){
+		result.append('<div class="non">По данному запросу нету данных</div>');
+		return;
+	}
 
 	for(var i = 0, l = data.length; i<l;i++){
 		result.append('<div class="result-item" data-query-id="'+data[i].ID+'"> '+data[i].COMENT+' </div>');

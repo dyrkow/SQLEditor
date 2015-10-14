@@ -66,6 +66,12 @@
 	overflow-x:hidden;
 	max-height:480px;
 	z-index:9999;
+	.non{
+		color:#cdcdcd;
+		text-align: center;
+		background:#fff;
+		padding:5px 15px;
+	}
 	.result-item{
 		background:#fff;
 		padding:5px 15px;

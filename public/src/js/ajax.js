@@ -17,7 +17,6 @@ function searchItems(data){
 	*/
 
 	$.ajax({
-		// url:'/Search',
 		url:config.search.url,
 		method:'GET',
 		// data:{COMENT:data},
@@ -26,11 +25,12 @@ function searchItems(data){
 		cache:false
 	})
 	.done(function(data){
-		spin.stop();
+
 		search.renderItems(data);
+		spin.stop('input_loader');
 	})
 	.fail(function(err){
-		spin.stop();
+		spin.stop('input_loader');
 		popup.create({
 			type:'error',
 			header:'Ошибка!',
@@ -50,7 +50,6 @@ function getQuery(data){
 	*/
 
 	$.ajax({
-		// url:'/GetQuery',
 		url:config.get.url,
 		method:'GET',
 		// data:{ID:data},
@@ -59,13 +58,27 @@ function getQuery(data){
 		cache:false,
 	})
 	.done(function(data){
+
+		if(data.result===false){
+			popup.create({
+				type:'error',
+				header:'Ошибка',
+				content:'Не удалось загрузить данный запрос.'
+			});
+			query.stopLoad();
+			return;
+		}
+
 		router.emit('id',data.ID,function(){query.render(data);});
+		query.Page.LOAD_PAGE=true;
 	})
 	.fail(function(err){
+		query.stopLoad();
+		query.Page.LOAD_PAGE=false;
 		popup.create({
 			type:'error',
 			header:'Ошибка!',
-			content:'На сервере произошла ошибка. Попробуйте ещё раз.',
+			content:'Не удалось загрузить данный запрос.',
 		});
 	});
 }
@@ -81,8 +94,7 @@ function runQuery(data){
 		Выполняет запрос к бд чтобы выполнить его
 	*/
 
-	$.ajax({//todo post
-		// url:'/TestQuery',
+	$.ajax({
 		url:config.test.url,
 		method:'POST',
 		// data:{ID:data.id,QUERYSTRING:data.query,PARAMS:data.params},
@@ -92,18 +104,18 @@ function runQuery(data){
 	})
 	.done(function(an){
 		if(an.result){
-			spin.stop('block');
+			spin.stop('test_loader');
 			query.log(an.data);
 			query.trigger(true);
 			select.set(true);
 		}else{
-			spin.stop('block');
+			spin.stop('test_loader');
 			query.log(an.error);
 			query.trigger(false);
 		}
 	})
 	.fail(function(err){
-		spin.stop('block');
+		spin.stop('test_loader');
 		popup.create({
 			type:'error',
 			header:'Ошибка!',
@@ -123,8 +135,7 @@ function setQuery(data){
 		Выполняет запрос чтобы сохранить изменённый запрос
 	*/
 
-	$.ajax({//todo post
-		// url:'/SaveQuery',
+	$.ajax({
 		url:config.save.url,
 		method:'POST',
 		// data:{ID:data.id,QUERYSTRING:data.query},
@@ -134,14 +145,14 @@ function setQuery(data){
 	})
 	.done(function(data){
 		if(data.result){
-			spin.stop('block');
+			spin.stop('save_loader');
 			popup.create({
 				type:'success',
 				header:'Сохранено!',
 				content:'Изменения были сохранены в базу данных.',
 			});
 		}else{
-			spin.stop('block');
+			spin.stop('save_loader');
 			popup.create({
 				type:'error',
 				header:'Не сохранено!',
@@ -150,7 +161,7 @@ function setQuery(data){
 		}
 	})
 	.fail(function(err){
-		spin.stop();
+		spin.stop('save_loader');
 		popup.create({
 			type:'error',
 			header:'Ошибка!',

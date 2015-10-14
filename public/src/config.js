@@ -15,7 +15,7 @@ var mode,
 				},
 				port:3000
 			},
-			prod:{
+			pro:{
 				search:{
 					url:'SqlPageService.aspx',
 				},

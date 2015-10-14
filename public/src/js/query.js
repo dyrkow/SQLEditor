@@ -10,6 +10,7 @@ var App        = require('./App.js'),
 
 		Page = {
 			Type:null,
+			LOAD_PAGE:false,// индикатор рагрузки страницы(false-приложение пустое)
 			SaveBtn : $('#query-save-btn'),
 			TestBtn : $('#query-run-btn'),
 			Parameters:[],
@@ -19,57 +20,13 @@ var App        = require('./App.js'),
 			TestCont:$('.run-view'),
 		},
 
-
-
-		// global loader page variable
-		loaderWall = $('.loader-wall'),
-
-		// save status
+		// save status (устанавливается в зависимости от выполнения запроса)
 		trigger    = true,
 
+		//loader page
 		loader     = $('.js-loader-page'),
+		loaderWall = $('.loader-wall'),
 		interval   = 0;
-
-
-function getParameter(name){
-
-	/*
-		@name - string
-
-		? есть ли такой параметр
-
-		Получает параметр страницы
-	*/
-
-	for(var i=0,l = Page.Parameters.length; i<l;i++){
-		var cash =Page.Parameters[i][name];
-	
-		if(cash){
-			return cash;
-		}else{
-			continue;
-		}
-	}
-
-	return null;
-}
-
-function eachParam(){
-
-	/*
-
-		Инициализирует параметры новыми значениями связанных с ними dom элиментов
-	*/
-
-	for(var i=0,l = Page.Parameters.length; i<l;i++){
-		var cash =Page.Parameters[i];
-		for(var el in cash){
-			cash[el] = cash.link.val();
-			break;
-		}
-		
-	}
-}
 
 
 
@@ -82,8 +39,12 @@ function initialize(){
 
 	var firstid = router.get('id');
 
+	// loaders
+	spin.create({name:'save_loader',el:Page.SaveBtn,mode:true,block:[Page.TestBtn]});
+	spin.create({name:'test_loader',el:Page.TestBtn,mode:true,block:[Page.SaveBtn]});
+
 	// first load
-	if(firstid){
+	if(firstid!==null){
 		query.initLoad();
 		ajax.load(firstid);
 	}
@@ -92,11 +53,16 @@ function initialize(){
 	Page.SaveBtn.click(function(e){
 		e.preventDefault();
 
+		if(!Page.LOAD_PAGE){
+			// если запрос не загружен на страницу то нельзя сохранять
+			return false;
+		}
+
 		if(trigger){
 			var value = editor.getText(App.editor),
 					id    = router.get('id');
 
-			spin.start($(this),'block');
+			spin.start('save_loader');
 
 			ajax.save({ID:id,COMENT:value});
 		}else{
@@ -109,16 +75,22 @@ function initialize(){
 	});
 
 	// test
-	Page.TestBtn.click(function(e){
+	Page.TestBtn.click(testQuery);
+
+	function testQuery(e){
 		e.preventDefault();
+
+		if(!Page.LOAD_PAGE){
+			//если не был загружен запрос на страницу
+			return false;
+		}
 
 		var string = editor.getText(App.editor),
 				globId = router.get('id');
 
-		spin.start($(this),'block');
-		console.log('d');
+		spin.start('test_loader');
+
 		Page.initParam();
-		console.log('d');
 
 		ajax.run({
 			id:globId,
@@ -126,8 +98,7 @@ function initialize(){
 			start_time:Page.getParam('start_time'),
 			stop_time:Page.getParam('stop_time')
 		});
-
-	});
+	}
 }
 
 // target status
@@ -143,7 +114,7 @@ function targetTar(val){
 
 // render page
 function renderQueryPage(data){
-	var title = $('.js-title-query'),
+	var title = $('.js-title-jquery'),
 			obj   = $('.js-obj-query');
 
 	title.text(data.COMENT);
@@ -175,6 +146,8 @@ function renderQueryPage(data){
 	}
 
 	query.stopLoad();
+
+
 
 
 	function createParam(name){
@@ -213,9 +186,46 @@ function renderQueryPage(data){
 
 		return el;
 	}
+}
 
+// param
+function getParameter(name){
 
+	/*
+		@name - string
 
+		? значение параметра либо null
+
+		Получает параметр страницы
+	*/
+
+	for(var i=0,l = Page.Parameters.length; i<l;i++){
+		var cash =Page.Parameters[i][name];
+
+		if(cash){
+			return cash;
+		}else{
+			continue;
+		}
+	}
+
+	return null;
+}
+
+function eachParam(){
+
+	/*
+		Инициализирует параметры новыми значениями связанных с ними dom элиментов
+	*/
+
+	for(var i=0,l = Page.Parameters.length; i<l;i++){
+		var cash =Page.Parameters[i];
+		for(var el in cash){
+			cash[el] = cash.link.val();
+			break;
+		}
+		
+	}
 }
 
 // loader
@@ -248,9 +258,9 @@ function stopLoaded(){
 }
 
 
-//render results
+// render results
 function renderResultQuery(data){
-	Page.TestCont.children('*').remove();
+	Page.TestCont.html('');
 
 	if(typeof data == 'string'){
 		//err
@@ -269,7 +279,6 @@ function renderResultQuery(data){
 						execval = dateRegexp.exec(cellval);
 
 				if(execval!==null){
-					console.log('start');
 					//дата
 					var date = new Function('return new '+execval)(),
 							day=date.getDate(),
@@ -296,4 +305,5 @@ module.exports.stopLoad = stopLoaded;
 module.exports.init     = initialize;
 module.exports.log      = renderResultQuery;
 module.exports.trigger  = targetTar;
+module.exports.Page     = Page;
 

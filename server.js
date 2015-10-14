@@ -29,8 +29,8 @@ app.get(config.search.url,function(req,res){
 			ID:5,
 			COMENT:'Поступление на УЗО'},
 		{
-			ID:6,
-			COMENT:'План (ТЭСЦ-4)'},
+			ID:60021,
+			COMENT:'План (ТЭСЦ-4) //запрос с неизвесным id'},
 	];
 
 	setTimeout(function(){

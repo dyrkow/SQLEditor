@@ -172,6 +172,9 @@ gulp.task('watch', function(){
 		watch([path.watch.font], function(event, cb) {
 				gulp.start('fonts');
 		});
+		watch(['src/config.js'], function(event, cb) {
+				gulp.start('js');
+		});
 });
 
 /*------------------------------------*\

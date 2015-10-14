@@ -42,23 +42,26 @@ function initialSelectMode(conf){
 			var cells = $(rs.get(i)).children("td");
 
 			for (var j = c0; j <= c1; j++) {
-					var cell = $(cells.get( j)),
-							val  = parseInt(cell.text());
+					var cell   = $(cells.get( j)),
+							regexp = /[^0-9]/g,
+							val;
 
 					cell.addClass('select');
+
+					if(regexp.test(cell.text())){
+						//не число
+						continue;
+					}
+
+					val = parseInt(cell.text());
 
 					if(cell.hasClass('js-date')){
 						continue;
 					}else{
-						if(isNaN(val)){
-							continue;
-						}else{
-							sum +=val;
-						}
+						sum +=val;
 					}
-
-
 			}
+
 		}
 
 		globalSum = sum;
