@@ -81,7 +81,8 @@ function initialize(){
 			if(mode==='test'){
 				var string = editor.getText(App.editor),
 						data = Page.PForm.serializeJSON();
-						data.type='TestQuery';
+
+				data.type='TestQuery';
 
 				spin.start('test_loader');
 
@@ -150,7 +151,7 @@ function renderQueryPage(data){
 
 	title.text(data.COMENT);
 
-	if(data.DELETE_FLAG===undefined||data.DELETE_FLAG==null){
+	if(data.DELETE_FLAG===undefined||data.DELETE_FLAG===null){
 		infoSt.append('<em>Отсутствует<em>');
 	}else{
 		if(data.DELETE_FLAG===0){

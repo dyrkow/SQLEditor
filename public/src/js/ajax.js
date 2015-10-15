@@ -19,13 +19,11 @@ function searchItems(data){
 	$.ajax({
 		url:config.search.url,
 		method:'GET',
-		// data:{COMENT:data},
 		data:{COMENT:data,TYPE:'Search'},
 		dataType:'json',
 		cache:false
 	})
 	.done(function(data){
-
 		search.renderItems(data);
 		spin.stop('input_loader');
 	})
@@ -52,7 +50,6 @@ function getQuery(data){
 	$.ajax({
 		url:config.get.url,
 		method:'GET',
-		// data:{ID:data},
 		data:{ID:data,TYPE:'GetQuery'},
 		dataType:'json',
 		cache:false,
@@ -97,7 +94,6 @@ function runQuery(data){
 	$.ajax({
 		url:config.test.url,
 		method:'POST',
-		// data:{ID:data.id,QUERYSTRING:data.query,PARAMS:data.params},
 		data:data,
 		dataType:'json',
 		cache:false,

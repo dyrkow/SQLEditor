@@ -42,7 +42,7 @@ function initialSelectMode(conf){
 			var cells = $(rs.get(i)).children("td");
 
 			for (var j = c0; j <= c1; j++) {
-					var cell   = $(cells.get( j)),
+					var cell   = $(cells.get(j)),
 							regexp = /[^0-9]/g,
 							val;
 
@@ -102,12 +102,17 @@ function initialSelectMode(conf){
 					$(e.target).append('<div class="r-lable">'+globalSum+'</div>');
 				}
 
+				setTimeout(function(){
+					table.find('td').removeClass('select');
+					table.find('.r-lable').remove();
+				},5000);
+
 				start = null;
 			}
 		}
 	});
 
-	$("body").bind('mouseup',function mouseUpBody(){
+	$('body').bind('mouseup',function mouseUpBody(){
 		if(table !== null){
 			start = null;
 		}
