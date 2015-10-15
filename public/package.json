@@ -18,6 +18,7 @@
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.4.2",
     "gulp-watch": "^4.3.5",
+    "jquery-serializejson": "^2.5.0",
     "rimraf": "^2.4.3"
   }
 }

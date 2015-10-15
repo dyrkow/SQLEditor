@@ -32,6 +32,6 @@ var mode,
 			}
 		};
 
-mode = config.dev;//select mode for change dev or prod
+mode = config.pro;//select mode for change dev or prod
 
 module.exports = mode;

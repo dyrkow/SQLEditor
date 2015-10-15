@@ -130,9 +130,7 @@ form{
 }
 
 .result-table-view{
-	tbody{
-		background:#ebebeb;
-	}
+	width:100%;
 
 	tr{
 		td{
@@ -140,7 +138,7 @@ form{
 			text-align: center;
 			position:relative;
 			vertical-align: middle;
-			border:2px solid #fff;
+			border:1px solid #E9E9E9;
 		}
 		td.select{
 			background:#2980b9;
@@ -165,13 +163,6 @@ form{
 			}
 		}
 	}
-
-	tr:nth-child(even){
-		background:#ebebeb;
-	}
-	tr:nth-child(odd){
-		background:#F7F7F7;
-	}
 }
 
 .view-table{
@@ -182,10 +173,10 @@ form{
 
 .run-view{
 	min-width:360px;
-	min-height:46px;
+	min-height:250px;
 	max-width:1170px;
 	max-height:340px;
-	padding:10px;
+	padding:40px 10px;
 	border:1px solid #cecece;
 	margin-top:20px;
 	border-radius:4px;
@@ -248,11 +239,7 @@ form{
 }
 
 .q-info-panel{
-	.form-group{
-		.input-no-edit{
-			margin-left:10px;
-		}
-		padding:15px;
+	small{
+		padding:5px;
 	}
-	margin-bottom:30px;
 }

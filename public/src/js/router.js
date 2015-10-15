@@ -8,7 +8,7 @@ function emitRoute(param,val,callback){
 
 		Вызывает роутер
 	*/
-
+	$('input[name=id]').val(val);
 	setParam(param,val);
 	callback();
 }

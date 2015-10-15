@@ -27,10 +27,28 @@ function initialize(){
 	// input
 	fild.keyup(function(e){
 		var value = $(this).val();
+		e.preventDefault();
+
+		/*//проверка нажатия на стрелки
+		if(e.keyCode===38||e.keyCode===40){
+			e.preventDefault();
+			//пройтись по элиментам
+			if(result.children('.result-item').length>1){
+				//есть результаты можно по ним лазить
+				console.log('navigation!');
+			}
+			return;
+		}
+
+		if(e.keyCode===13){
+			e.preventDefault();
+			console.log('Enter');
+			return;
+		}*/
+
 		result.html('');
 
 		if(value.length>=3){
-
 			delaySearch(function(){
 				spin.start('input_loader');
 				ajax.search(fild.val());

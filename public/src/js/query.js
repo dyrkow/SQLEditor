@@ -13,12 +13,13 @@ var App        = require('./App.js'),
 			LOAD_PAGE:false,// индикатор рагрузки страницы(false-приложение пустое)
 			SaveBtn : $('#query-save-btn'),
 			TestBtn : $('#query-run-btn'),
+			PForm: $('#param-form'),
 			Parameters:[],
 			initParam:eachParam,
 			getParam:getParameter,
 			ParamPanel:$('.parameters-panel'),
 			TestCont:$('.run-view'),
-
+			InfoPanel:$('.q-info-panel')
 		},
 
 		// save status (устанавливается в зависимости от выполнения запроса)
@@ -50,6 +51,51 @@ function initialize(){
 		ajax.load(firstid);
 	}
 
+	//form
+	Page.PForm.bind('submit',function(e,mode){
+		e.preventDefault();
+		if(mode==='save'){
+			if(trigger){
+				var value = editor.getText(App.editor),
+						id = $('input[name=id]').val(),
+						data = {};
+
+				spin.start('save_loader');
+
+				data.id=id;
+				data.query = value;
+				data.type='SaveQuery';
+
+				console.log(data);
+
+				ajax.save(data);
+			}else{
+				popup.create({
+					type:'error',
+					header:'Ошибка!',
+					content:'Вы не можите сохранять не исправный запрос.'
+				});
+			}
+
+		}else{
+			if(mode==='test'){
+				var string = editor.getText(App.editor),
+						data = Page.PForm.serializeJSON();
+						data.type='TestQuery';
+
+				spin.start('test_loader');
+
+				data.query = string;
+
+				ajax.run(data);
+
+			}else{
+				return false;
+			}
+		}
+		
+	});
+
 	// save
 	Page.SaveBtn.click(function(e){
 		e.preventDefault();
@@ -59,20 +105,8 @@ function initialize(){
 			return false;
 		}
 
-		if(trigger){
-			var value = editor.getText(App.editor),
-					id    = router.get('id');
+		Page.PForm.trigger('submit',['save']);
 
-			spin.start('save_loader');
-
-			ajax.save({ID:id,COMENT:value});
-		}else{
-			popup.create({
-				type:'error',
-				header:'Ошибка!',
-				content:'Вы не можите сохранять не исправный запрос.'
-			});
-		}
 	});
 
 	// test
@@ -86,19 +120,8 @@ function initialize(){
 			return false;
 		}
 
-		var string = editor.getText(App.editor),
-				globId = router.get('id');
+		Page.PForm.trigger('submit',['test']);
 
-		spin.start('test_loader');
-
-		Page.initParam();
-
-		ajax.run({
-			id:globId,
-			query:string,
-			start_time:Page.getParam('start_time'),
-			stop_time:Page.getParam('stop_time')
-		});
 	}
 }
 
@@ -121,19 +144,43 @@ function renderQueryPage(data){
 			infoS  = $('#info-sourse'),
 			infoSt = $('#info-status');
 
-	if(data.DELETE_FLAG===0){
-		infoSt.addClass('bg-success');
+			console.log(Page.InfoPanel);
+
+	Page.InfoPanel.children('span').children('small').text('');
+
+	title.text(data.COMENT);
+
+	if(data.DELETE_FLAG===undefined||data.DELETE_FLAG==null){
+		infoSt.append('<em>Отсутствует<em>');
 	}else{
-		if(data.DELETE_FLAG===1){
-			infoSt.addClass('bg-danger');
+		if(data.DELETE_FLAG===0){
+			infoSt.addClass('bg-info ');
+			infoSt.text('Активен');
+		}else{
+			if(data.DELETE_FLAG===1){
+				infoSt.addClass('bg-danger');
+				infoSt.text('Удалён');
+			}
 		}
 	}
 
-	title.text(data.COMENT);
-	infoP.text(data.RESPONSIBLE);
-	infoDb.text(data.SNAME);
-	infoS.text(data.SOURCE);
-	infoSt.text(data.DELETE_FLAG);
+	if(data.RESPONSIBLE===null||data.RESPONSIBLE===''||data.SNAME===undefined){
+		infoP.append('<em>Отсутствует<em>');
+	}else{
+		infoP.text(data.RESPONSIBLE);
+	}
+
+	if(data.SNAME===null||data.SNAME ===''||data.SNAME===undefined){
+		infoDb.append('<em>Отсутствует<em>');
+	}else{
+		infoDb.text(data.SNAME);
+	}
+
+	if(data.SOURCE===null||data.SOURCE ===''||data.SNAME===undefined){
+		infoS.append('<em>Отсутствует<em>');
+	}else{
+		infoS.text(data.SOURCE);
+	}
 
 	editor.setText(App.editor,data.QUERYSTRING);
 	Page.TestCont.html('');
@@ -177,7 +224,7 @@ function renderQueryPage(data){
 		*/
 
 		var id = 'param-control-'+name,
-				resString = '<div class="input-group"><input type="text" class="form-control" id="'+id+'"/><label for="'+id+'" class="input-group-addon">'+name+'</label></div>',
+				resString = '<div class="input-group"><input type="text" name="'+name+'" class="form-control" id="'+id+'"/><label for="'+id+'" class="input-group-addon">'+name+'</label></div>',
 				el;
 
 		Page.ParamPanel.append(resString);

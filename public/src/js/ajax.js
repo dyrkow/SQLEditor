@@ -98,7 +98,7 @@ function runQuery(data){
 		url:config.test.url,
 		method:'POST',
 		// data:{ID:data.id,QUERYSTRING:data.query,PARAMS:data.params},
-		data:{ID:data.id,QUERY:data.query,PARAMS:data.params,TYPE:'TestQuery'},
+		data:data,
 		dataType:'json',
 		cache:false,
 	})
@@ -138,8 +138,7 @@ function setQuery(data){
 	$.ajax({
 		url:config.save.url,
 		method:'POST',
-		// data:{ID:data.id,QUERYSTRING:data.query},
-		data:{ID:data.id,QUERYSTRING:data.query,TYPE:'SaveQuery'},
+		data:data,
 		dataType:'json',
 		cache:false
 	})

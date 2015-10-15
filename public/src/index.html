@@ -57,37 +57,20 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="js-title-jquery">Не выбран запрос</h1>
+					<h2 class="js-title-jquery">Не выбран запрос</h2>
 				</div>
 			</div>
 
-			<div class="row q-info-panel">
-				<div class="col-md-4 col-xs-12 col-sm-5">
-					<div class="form-group">
-						<label for="info-person" class="col-sm-4 control-label">Ответственный</label>
-						<div class="col-sm-8">
-							<div class="input-no-edit" id="info-person">&nbsp;</div>
-						</div>
+			<div class="panel panel-default panel-horizontal">
+					<div class="panel-body q-info-panel">
+						<span class="h5">Статус:<small id="info-status"></small></span>
+						<i class="glyphicon glyphicon-option-vertical"></i>
+						<span class="h5">Ответственный:<small id="info-person"></small></span>
+						<i class="glyphicon glyphicon-option-vertical"></i>
+						<span class="h5">DBlink:<small id="info-bdlink"></small></span>
+						<i class="glyphicon glyphicon-option-vertical"></i>
+						<span class="h5">Источник:<small id="info-sourse"></small></span>
 					</div>
-					<div class="form-group">
-						<label for="info-bdlink" class="col-sm-4 control-label">Dblink</label>
-						<div class="col-sm-8">
-							<div class="input-no-edit" id="info-bdlink">&nbsp;</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="info-sourse" class="col-sm-4 control-label">Источник</label>
-						<div class="col-sm-8">
-							<div class="input-no-edit" id="info-sourse">&nbsp;</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="info-status" class="col-sm-4 control-label">Статус</label>
-						<div class="col-sm-8">
-							<div class="input-no-edit" id="info-status">&nbsp;</div>
-						</div>
-					</div>
-				</div>
 			</div>
 
 			<div class="row">
@@ -97,7 +80,8 @@
 
 			<div class="row">
 				<div class="col-md-12">
-						<form action="" class="form-horizontal">
+						<form id="param-form" class="form-horizontal">
+							<input type="hidden" name="id" value="" />
 
 							<div class="row">
 								<div class="col-md-12">
@@ -106,7 +90,8 @@
 							</div>
 
 							<div class="row">
-								<div class="parameters-panel col-md-8 col-sm-6 col-xs-6 form-inline"></div>
+								<div class="parameters-panel col-md-8 col-sm-6 col-xs-6 form-inline">
+								</div>
 								<div class="col-md-4 col-sm-6 col-xs-6 form-inline text-right">
 									<button type="submit" class="btn-control-editor panel-control btn btn-primary" id="query-run-btn" data-loading-text="Выполнить">Выполнить</button>
 									<button type="submit" class="btn-control-editor panel-control btn btn-success" id="query-save-btn" data-loading-text="Сохранить">Сохранить</button>
@@ -119,6 +104,7 @@
 
 				<div class="row">
 					<div class="col-md-12">
+						<span class="h4">Результаты запроса</span>
 						<div class="run-view view-table"></div>
 					</div>
 				</div>
@@ -135,6 +121,7 @@
 	<script src="libs/moment-with-locales.min.js"></script>
 	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="libs/bootstrap-datetimepicker-master/build/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="libs/jquery.serializejson.min.js"></script>
 	<script src="libs/ace-builds/src-min/ace.js"></script>
 	<script src="js/app.min.js"></script>
 </body>
