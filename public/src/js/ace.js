@@ -12,6 +12,7 @@ function editorInitConfig(el,settings){
 	*/
 
 	var editor = window.ace.edit(el);
+	editor.$blockScrolling = Infinity;
 
 
 	if(settings){

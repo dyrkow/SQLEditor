@@ -10,7 +10,6 @@ app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
 
-console.log(config);
 app.get(config.search.url,function(req,res){
 	var data = [
 		{

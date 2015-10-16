@@ -66,8 +66,6 @@ function initialize(){
 				data.query = value;
 				data.type='SaveQuery';
 
-				console.log(data);
-
 				ajax.save(data);
 			}else{
 				popup.create({
@@ -144,8 +142,6 @@ function renderQueryPage(data){
 			infoDb = $('#info-bdlink'),
 			infoS  = $('#info-sourse'),
 			infoSt = $('#info-status');
-
-			console.log(Page.InfoPanel);
 
 	Page.InfoPanel.children('span').children('small').text('');
 

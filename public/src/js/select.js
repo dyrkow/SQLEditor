@@ -53,13 +53,13 @@ function initialSelectMode(conf){
 						continue;
 					}
 
-					val = parseInt(cell.text());
-
 					if(cell.hasClass('js-date')){
 						continue;
-					}else{
-						sum +=val;
 					}
+
+					val = parseInt(cell.text());
+
+					sum +=val;
 			}
 
 		}
@@ -98,14 +98,9 @@ function initialSelectMode(conf){
 			if(e.target.nodeName==='TD'){
 				selectTo(e.target,e);
 
-				if(e.target.className === 'select'){
+				if($(e.target).hasClass('select')){
 					$(e.target).append('<div class="r-lable">'+globalSum+'</div>');
 				}
-
-				setTimeout(function(){
-					table.find('td').removeClass('select');
-					table.find('.r-lable').remove();
-				},5000);
 
 				start = null;
 			}

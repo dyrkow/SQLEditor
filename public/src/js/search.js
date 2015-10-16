@@ -149,7 +149,7 @@ function renderResultItems(data){
 	}
 
 	for(var i = 0, l = data.length; i<l;i++){
-		result.append('<div class="result-item" data-query-id="'+data[i].ID+'"> '+data[i].COMENT+' </div>');
+		result.append('<div class="result-item" data-query-id="'+data[i].ID+'"> ('+data[i].ID+') '+data[i].COMENT+' </div>');
 	}
 
 }
